@@ -1,0 +1,78 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.tabs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.tab {
+    flex: 1;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    color: #333;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    transition: background-color 0.3s ease;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+    .tab:last-child {
+        border-right: 1px solid #ccc;
+    }
+
+    .tab.active {
+        background-color: #0078d7;
+        color: #fff;
+    }
+
+    .tab:hover {
+        background-color: #ddd;
+    }
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+    .tab-content.active {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding-top: 70px;
+    }
+
+h2 {
+    color: #0078d7;
+}
+
+p {
+    color: #333;
+}
+.AddressContainer {
+    
+}
+.AddressBox {
+    margin-right: 30px; /* Dodaj odstęp między divami */
+  }
+.hidden-link {
+    display: none; /* Ukryj link */
+    color: blue; /* Kolor tekstu */
+}
+    

@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    ViewData["Title"] = "SearchPerson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Wyszukiwanie użytkowników</h1>
+<hr />
+
+
+
+<form method="get" asp-controller="Person" asp-action="SearchPersonResult">
+    <label for="name">Nazwa:</label>
+    <input  type="text" id="name" name="name" value="@Model"/>
+    <button type="submit" class="btn btn-primary">Szukaj</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">wyjscie</a>
+</form>

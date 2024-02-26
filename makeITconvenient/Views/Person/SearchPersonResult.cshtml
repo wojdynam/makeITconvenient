@@ -1,0 +1,32 @@
+﻿@model IEnumerable<PersonDto>
+@{
+    ViewData["Title"] = "SearchPersonResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SearchPersonResult</h1>
+
+@foreach(var item in Model){
+    
+    <div id="tab1" class="tab-content active">
+        <div class="form-group">
+            <label>@item.FirstName</label>
+            <label>@item.LastName</label>
+         </div>
+        <div>
+            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item?.PersonId">Szczegóły</a>
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item?.PersonId">Edytuj</a>
+            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item?.PersonId">Usuń</a>
+            <input type="button" id="cancel-btn" value="wyjscie" class="btn btn-secondary" />
+            
+        </div>
+       
+       
+    </div>
+}
+<script>
+    let cancelBtn = document.getElementById("cancel-btn");
+    cancelBtn.addEventListener("click", function () {
+        window.history.back();
+    });
+    </script>

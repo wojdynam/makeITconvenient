@@ -1,0 +1,256 @@
+﻿@model makeITconvenient.Models.PersonDto
+@{
+    ViewData["Title"] = "AddPerson";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Dodawanie nowego użytkownika</h1>
+
+
+<hr />
+<ul class="tabs">
+    <li class="tab" onclick="showTab('tab1')">Dane personalne</li>
+    <li class="tab" onclick="showTab('tab2')">dane kontaktowe </li>
+    <li class="tab" onclick="showTab('tab3')">Adres</li>
+</ul>
+<div class="row">
+    <div >
+        <form asp-action="AddPerson" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div id="tab1" class="tab-content active">
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sex" class="control-label"></label>
+                    <input asp-for="Sex" class="form-control" />
+                    <span asp-validation-for="Sex" class="text-danger"></span>
+                </div>
+            </div>
+            <div id="tab2" class="tab-content">
+                 <div id="ContactDetails">
+                    <div class="form-group">
+                         <label > Dane Kontaktowe:</label>
+                         <input id ="EnableContactDetails"type="checkbox"  />
+                    </div>
+                    <div class="form-group">
+                         <label asp-for="ContactDetails.Email" class="control-label"></label>
+                         <input asp-for="ContactDetails.Email" class="form-control" disabled/>
+                         <span asp-validation-for="ContactDetails.Email" class=" text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                         <label asp-for="ContactDetails.PhoneNumber" class="control-label"></label>
+                         <input asp-for="ContactDetails.PhoneNumber" class="form-control" disabled />
+                         <span asp-validation-for="ContactDetails.PhoneNumber" class=" text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                         <label asp-for="ContactDetails.Website" class="control-label"></label>
+                         <input asp-for="ContactDetails.Website" class="form-control" disabled />
+                         <span asp-validation-for="ContactDetails.Website" class=" text-danger"></span>
+                    </div>
+
+                </div>
+           </div>
+           <div id="tab3" class="tab-content">
+                
+                <div id="ResidentialAddress" class="AddressBox">
+                   
+                        
+                     <div >
+                         <label> Adres Zamieszkania:</label>
+                        <input id="EnableResidentialAddress" type="checkbox">
+                    </div>
+                    <div >
+                        <input type="hidden" id="Address0" asp-for="AddressList[0].AddressName" class="form-control" disabled />
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].Country" class="control-label"></label>
+                            <input asp-for="AddressList[0].Country" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].Country" class=" text-danger"></span>
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].PostalCode" class="control-label"></label>
+                            <input asp-for="AddressList[0].PostalCode" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].PostalCode" class=" text-danger"></span>
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].City" class="control-label"></label>
+                            <input asp-for="AddressList[0].City" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].City" class=" text-danger"></span>
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].Street" class="control-label"></label>
+                            <input asp-for="AddressList[0].Street" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].Street" class=" text-danger"></span>
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].HouseNumber" class="control-label"></label>
+                            <input asp-for="AddressList[0].HouseNumber" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].HouseNumber" class=" text-danger"></span>
+                    </div>
+                    <div >
+                            <label asp-for="AddressList[0].ApartmentNumber" class="control-label"></label>
+                            <input asp-for="AddressList[0].ApartmentNumber" class="form-control" disabled />
+                            <span asp-validation-for="AddressList[0].ApartmentNumber" class=" text-danger"></span>
+                    </div>
+                                         
+                     
+                </div>
+                  
+                    
+                    
+                <div id="MailingAddress" class="AddressBox">
+                    <div >
+                        <label> Adres do korespondencji:</label>
+                        <input id="EnableMailingAddress" type="checkbox" >
+                    </div>
+                    <div>
+                        <input type="hidden" id="Address1" asp-for="AddressList[1].AddressName" class="form-control" disabled />
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].Country" class="control-label"></label>
+                        <input asp-for="AddressList[1].Country" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].Country" class=" text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].PostalCode" class="control-label"></label>
+                        <input asp-for="AddressList[1].PostalCode" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].PostalCode" class=" text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].City" class="control-label"></label>
+                        <input asp-for="AddressList[1].City" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].City" class=" text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].Street" class="control-label"></label>
+                        <input asp-for="AddressList[1].Street" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].Street" class=" text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].HouseNumber" class="control-label"></label>
+                        <input asp-for="AddressList[1].HouseNumber" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].HouseNumber" class=" text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="AddressList[1].ApartmentNumber" class="control-label"></label>
+                        <input asp-for="AddressList[1].ApartmentNumber" class="form-control" disabled />
+                        <span asp-validation-for="AddressList[1].ApartmentNumber" class=" text-danger"></span>
+                    </div>
+
+                </div>
+                
+           </div>
+            <h2 id="success">@ViewBag.Success</h2></br></br>
+            <div class="form-group">
+            
+                <input id ="AddPersonButton"type="submit" value="Zapisz" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">wyjscie</a>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+<div>
+   
+    
+</div>
+<script>
+    let button = document.getElementById("EnableContactDetails");
+    var ContactDetails = document.getElementById("ContactDetails");
+    var inputsContactDetails = ContactDetails.querySelectorAll("input[type='text']");
+     button.addEventListener("change", function () {
+        if (this.checked) {
+            inputsContactDetails.forEach(function (input) {
+                input.disabled = false;
+            });
+        } else {
+            inputsContactDetails.forEach(function (input) {
+                input.disabled = true;
+            });
+        }
+        
+    });
+    let ResidentialCheckbox = document.getElementById("EnableResidentialAddress");
+    var ResidentialAddress = document.getElementById("ResidentialAddress");
+    let ResidentialAddressName = document.getElementById("Address0")
+    var inputsResidentialAddress = ResidentialAddress.querySelectorAll("input[type='text']");
+    ResidentialCheckbox.addEventListener("change", function () {
+        if (this.checked) {
+            inputsResidentialAddress.forEach(function (input) {
+                ResidentialAddressName.disabled = false;
+                ResidentialAddressName.value = "Residential Address";
+                input.disabled = false;
+            });
+        } else {
+            inputsResidentialAddress.forEach(function (input) {
+                ResidentialAddressName.disabled = true;
+                input.disabled = true;
+            });
+        }
+
+    });
+    let MailingCheckbox = document.getElementById("EnableMailingAddress");
+    var MailingAddress = document.getElementById("MailingAddress");
+    let MailingAddressName = document.getElementById("Address1");
+    var inputsMailingAddress = MailingAddress.querySelectorAll("input[type='text']");
+    MailingCheckbox.addEventListener("change", function () {
+        if (this.checked) {
+            inputsMailingAddress.forEach(function (input) {
+                MailingAddressName.disabled = false;
+                MailingAddressName.value = "Mailing Address";
+                input.disabled = false;
+                
+            });
+        } else {
+            inputsMailingAddress.forEach(function (input) {
+                MailingAddressName.disabled = true;
+                input.disabled = true;
+                
+            });
+        }
+
+    });
+    // obsluga zakładek
+    function showTab(tabId) {
+        // Ukryj wszystkie zakładki
+        var tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(function (tab) {
+            tab.classList.remove('active');
+        });
+
+        var tabButtons = document.querySelectorAll('.tab');
+        tabButtons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        // Pokaż wybraną zakładkę
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector('[onclick="showTab(\'' + tabId + '\')"]').classList.add('active');
+    }
+    var success=document.getElementById("success");
+    if (!success.innerText.trim()) {
+       
+    } else {
+        var btnSave = document.getElementById("AddPersonButton")
+        btnSave.style.display='none'
+        
+    }
+    
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
