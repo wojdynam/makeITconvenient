@@ -1,6 +1,6 @@
 ﻿@model makeITconvenient.Models.PersonDto
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "szczegóły ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -131,14 +131,13 @@
 
             </div>
 
-            
+        <input type="button" id="cancel-btn" value="anuluj" class="btn btn-secondary" />
     </div>
 </div>
 
-<div>
-    <input type="button" id="cancel-btn" value="wyjscie" class="btn btn-secondary" />
 
-</div>
+
+
 <script>
     let cancelBtn = document.getElementById("cancel-btn");
     cancelBtn.addEventListener("click", function () {

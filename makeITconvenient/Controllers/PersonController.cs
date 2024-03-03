@@ -1,11 +1,15 @@
-﻿using makeITconvenient.Models;
+﻿using makeITconvenient.InitialConf;
+using makeITconvenient.Models;
 using makeITconvenient.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Primitives;
+using System.Reflection.Metadata;
 
 namespace makeITconvenient.Controllers
 {
-    [Authorize]
+    //[Authorize(Policy = "RequiredSuperAdmin")]
     public class PersonController : Controller
     {
         private readonly IPersonServices _personServices;
@@ -14,8 +18,9 @@ namespace makeITconvenient.Controllers
         {
             _personServices = personServices;
         }
-
+        
         [HttpGet]
+        [ServiceFilter(typeof(RoleAuthorizationFilter))]
         public IActionResult AddPerson()
         {
             var personDto = new PersonDto();
@@ -35,7 +40,7 @@ namespace makeITconvenient.Controllers
             if (ModelState.IsValid)
             {
                 await _personServices.AddAsync(personDto);
-                ViewBag.Success = "Dane zostaly poprawnie zapisane";
+                ViewBag.Success = "Dane zostały poprawnie zapisane";
                 return View();
             }
             else
@@ -44,20 +49,29 @@ namespace makeITconvenient.Controllers
             }
         }
         [HttpGet]
-        public IActionResult PersonSearch(string name) => View(name);
+        public IActionResult PersonSearch(string personName)
+        {
+            if (!string.IsNullOrEmpty(personName))
+            {
+                ViewBag.ErrorMessage = $"osoba: {personName} nie została znaleziona";
+            }
+
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult>SearchPersonResult(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
-                return RedirectToAction("PersonSearch");
+                return RedirectToAction(nameof(PersonSearch));
             }
             var personDtoList = await _personServices.SearchAsync(name);
             if (personDtoList.Any())
             {
                 return View(personDtoList);
             }
-            return RedirectToAction(nameof(PersonSearch), new {value =name});
+            return RedirectToAction(nameof(PersonSearch),new {personName = name });
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -103,7 +117,6 @@ namespace makeITconvenient.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await _personServices.RemoveAsync(id);
-            //var result = _personServices.S
             return View();
         }
     }

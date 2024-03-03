@@ -1,8 +1,6 @@
 ﻿using ComponentModules.BaseModule;
 using ComponentModules.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
 
 namespace DataAccessLayer.Repositories
 {

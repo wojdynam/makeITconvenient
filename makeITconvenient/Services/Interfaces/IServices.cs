@@ -7,7 +7,7 @@ namespace makeITconvenient.Services.Interfaces
         public Task<T> AddAsync(T service);
         public Task RemoveAsync(int id);
         public Task<T> EditAsync(T service);
-        public Task<T> DetailsAsync(int id);// get detail zwraca tylko jeden rekord 
+        public Task<T> DetailsAsync(int id);
 
     }
 }

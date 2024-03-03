@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace ComponentModules.BaseModule
 {
@@ -13,8 +9,8 @@ namespace ComponentModules.BaseModule
         public string PhoneNumber { get; set; }
         public string Website { get; set; }
 
-        public int PersonId { get; set; }//foreign key of the person class
-        public  Person Person { get; set; }//navigaton
+        public int PersonId { get; set; }
+        public  Person Person { get; set; }
         
     }
 }

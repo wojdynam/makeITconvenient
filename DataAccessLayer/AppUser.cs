@@ -5,9 +5,9 @@ namespace DataAccessLayer
 {
     public class AppUser : IdentityUser
     {
-        // do rozszerzenia aby można było dodać id osoby do tabeli user
-        public int? PersonId { get; set; }
+        public bool RequirePasswordChange { get; set; }
 
+        public int? PersonId { get; set; }
         public virtual Person Person { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@model makeITconvenient.Models.PersonDto
 @{
-    ViewData["Title"] = "AddPerson";
+    ViewData["Title"] = "Dodawanie użytkownika";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -152,7 +152,7 @@
             <div class="form-group">
             
                 <input id ="AddPersonButton"type="submit" value="Zapisz" class="btn btn-primary" />
-                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">wyjscie</a>
+                <a asp-controller="Dashboards" asp-action="AdminDashboard" class="btn btn-secondary">wyjscie</a>
             </div>
         </form>
     </div>

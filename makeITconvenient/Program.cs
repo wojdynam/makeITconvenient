@@ -1,33 +1,45 @@
-﻿
+
 using ComponentModules.Interfaces;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
+using makeITconvenient.InitialConf;
 using makeITconvenient.Services;
 using makeITconvenient.Services.Interfaces;
 using makeITconvenient.Services.Mappings;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<IPersonServices, PersonServices>();
 builder.Services.AddSingleton(AutomapperConfig.Initialize());
+
+
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
-
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddDefaultIdentity<AppUser>(
+        options => { options.SignIn.RequireConfirmedAccount = false;
+        options.Lockout.AllowedForNewUsers = true;
+        })
+ .AddRoles<IdentityRole>()
+ .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
-   
-    .AddEntityFrameworkStores<AppDbContext>();
-
-
+builder.Services.AddTransient<DefaultAdmin>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAuthorization(options =>
+options.AddPolicy("RequiredSuperAdmin", policy => policy.RequireRole("Admin")));
+builder.Services.AddScoped<RoleAuthorizationFilter>(provider =>
+{
+  
+    return new RoleAuthorizationFilter("Admin");
+});
+
 
 var app = builder.Build();
 
@@ -45,22 +57,13 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
-// tutaj trzeba uważać bo kolejność jest bardzo ważna 
-//app.MapControllerRoute(
-//    name: "areas",
-//     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-//    );
-
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-
+    pattern: "{controller=AccessUser}/{action=Login}/{id?}");
 app.MapRazorPages();
+var defaultAdmin = app.Services.CreateScope().ServiceProvider.GetRequiredService<DefaultAdmin>();
+defaultAdmin.Initialize();
 
 app.Run();
